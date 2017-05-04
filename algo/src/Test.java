@@ -4,8 +4,7 @@ import java.util.ArrayList;
 public class Test {
 	
 	public static void main(String args[]) {
-		Strategie start;
-		start = new StrategieDynamique();
+		Strategie s;
 		Sommet s1 = new Sommet(0,0);
 		Sommet s2 = new Sommet(0,5);
 		Sommet s3 = new Sommet(2,6);
@@ -20,7 +19,7 @@ public class Test {
 		System.out.println("c:"+c.toString());
 		
 		Polygone p = new Polygone(l);
-		StrategieDynamique s = new StrategieDynamique();
+		s = new StrategieDynamique();
 		
 		System.out.println("triangulation:"+s.triangulation(p)+"   "+s.toString());
 	}

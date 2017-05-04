@@ -13,12 +13,12 @@ public class StrategieDynamique implements Strategie {
 		Corde c = new Corde(l.get(0),l.get(l.size()-1));
 		int n=l.size();
 		
-		//variable contenant la longueur de la triangulisation
-		double longueurMin = c.calculLongueur(l.get(0), l.get(k)) + c.calculLongueur(l.get(k), l.get(n-1))+ c.calculLongueur(l.get(0), l.get(n-1));
-		System.out.println("longueurMin:"+longueurMin);
-		
 		//cas où le polygone peut avoir une triangulisation
 		if (n>3){
+			
+			//variable contenant la longueur de la triangulisation
+			double longueurMin = c.calculLongueur(l.get(0), l.get(k)) + c.calculLongueur(l.get(k), l.get(n-1))+ c.calculLongueur(l.get(0), l.get(n-1));
+			//System.out.println("longueurMin:"+longueurMin);
 			
 			//on parcourt tous les autres points
 			for (i=2;i<n-1;i++) {
@@ -29,6 +29,15 @@ public class StrategieDynamique implements Strategie {
 				}
 			}
 			
+			if (k==1){
+				longueurMin = longueurMin - c.calculLongueur(l.get(0), l.get(k)) - c.calculLongueur(l.get(0), l.get(n-1));
+			}
+			else if (k==n-2){
+				longueurMin = longueurMin - c.calculLongueur(l.get(k), l.get(n-1)) - c.calculLongueur(l.get(0), l.get(n-1));
+			}
+			else {
+				longueurMin = longueurMin - c.calculLongueur(l.get(0), l.get(n-1));
+			}
 			//création de deux liste
 			ArrayList<Sommet> l1 = new ArrayList<Sommet>();
 			ArrayList<Sommet> l2 = new ArrayList<Sommet>();

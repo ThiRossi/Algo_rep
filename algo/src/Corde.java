@@ -1,8 +1,8 @@
 
 public class Corde {
 	
-	private Sommet SommetDepard;
-	private Sommet SommetArrive;
+	private Sommet sommetDepard;
+	private Sommet sommetArrive;
 	double longueur;
 	
 	public Corde(Sommet sd, Sommet sa, double l){
@@ -24,13 +24,13 @@ public class Corde {
 	}
 	
 	public double calculLongueur(Sommet s1, Sommet s2) {
-		return Math.sqrt(Math.pow((s2.abs - s1.abs), 2)+Math.pow((s2.aord - s1.ord), 2));
+		return Math.sqrt(Math.pow((s2.getAbs() - s1.getAbs()), 2)+Math.pow((s2.getOrd() - s1.getOrd()), 2));
 	}
 	
 	@Override
 	public String toString() {
-		return "corde [SommetDepard=" + SommetDepard + ", SommetArrive="
-				+ SommetArrive + ", longueur=" + longueur + "]";
+		return "corde [SommetDepard=" + sommetDepard + ", SommetArrive="
+				+ sommetArrive + ", longueur=" + longueur + "]";
 	}
 
 	public double getLongueur() {
@@ -38,19 +38,19 @@ public class Corde {
 	}
 
 	public Sommet getSommetDepard() {
-		return SommetDepard;
+		return sommetDepard;
 	}
 
 	public void setSommetDepard(Sommet SommetDepard) {
-		this.SommetDepard = SommetDepard;
+		this.sommetDepard = SommetDepard;
 	}
 
 	public Sommet getSommetArrive() {
-		return SommetArrive;
+		return sommetArrive;
 	}
 
 	public void setSommetArrive(Sommet SommetArrive) {
-		this.SommetArrive = SommetArrive;
+		this.sommetArrive = SommetArrive;
 	}
 	
 	

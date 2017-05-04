@@ -1,0 +1,6 @@
+import java.util.ArrayList;
+
+
+public interface Strategie {
+	public ArrayList<Corde> triangulation(Polygone p);
+}

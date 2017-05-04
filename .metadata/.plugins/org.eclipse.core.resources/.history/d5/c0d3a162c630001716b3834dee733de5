@@ -1,0 +1,10 @@
+
+public class Sommet {
+	private int abs;
+	private int ord;
+	
+	public Sommet(int abscisse, int ordonnee){
+		abscisse=abs;
+		ordonnee=ord;
+	}
+}

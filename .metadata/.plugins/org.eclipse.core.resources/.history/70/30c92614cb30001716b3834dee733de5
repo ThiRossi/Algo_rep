@@ -1,0 +1,14 @@
+import java.util.ArrayList;
+
+
+public class StrategieGloutone implements Strategie  {
+
+	@Override
+	public double triangulation(Polygone p) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
+
+}

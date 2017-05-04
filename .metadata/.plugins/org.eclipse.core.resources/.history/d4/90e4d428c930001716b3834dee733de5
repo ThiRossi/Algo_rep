@@ -1,0 +1,8 @@
+import java.util.ArrayList;
+
+
+public class Polygone {
+	private ArrayList<Sommet> listSom;
+	
+	public Polygone(ArrayList<Sommet> listSommets)
+}

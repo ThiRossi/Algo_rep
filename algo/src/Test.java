@@ -22,7 +22,7 @@ public class Test {
 		Polygone p = new Polygone(l);
 		StrategieDynamique s = new StrategieDynamique();
 		
-		System.out.println("triangulation:"+s.triangulation(p));
+		System.out.println("triangulation:"+s.triangulation(p)+"   "+s.toString());
 	}
 	
 	

@@ -3,6 +3,8 @@ import java.util.ArrayList;
 
 public class StrategieDynamique implements Strategie {
 	
+	private ArrayList<Corde> triangulation = new ArrayList<Corde>();
+	
 	public double triangulation(Polygone p) {
 		//declaration des variables
 		int i;
@@ -31,12 +33,20 @@ public class StrategieDynamique implements Strategie {
 			
 			if (k==1){
 				longueurMin = longueurMin - c.calculLongueur(l.get(0), l.get(k)) - c.calculLongueur(l.get(0), l.get(n-1));
+				Corde ct = new Corde(l.get(k),l.get(n-1));
+				triangulation.add(ct);
 			}
 			else if (k==n-2){
 				longueurMin = longueurMin - c.calculLongueur(l.get(k), l.get(n-1)) - c.calculLongueur(l.get(0), l.get(n-1));
+				Corde ct = new Corde(l.get(0),l.get(k));
+				triangulation.add(ct);
 			}
 			else {
 				longueurMin = longueurMin - c.calculLongueur(l.get(0), l.get(n-1));
+				Corde ct = new Corde(l.get(k),l.get(n-1));
+				Corde cd = new Corde(l.get(0),l.get(k));
+				triangulation.add(ct);
+				triangulation.add(cd);
 			}
 			//création de deux liste
 			ArrayList<Sommet> l1 = new ArrayList<Sommet>();
@@ -68,5 +78,18 @@ public class StrategieDynamique implements Strategie {
 			return 0;
 		}
 		
+	}
+
+	@Override
+	public String toString() {
+		return "StrategieDynamique [triangulation=" + triangulation + "]";
+	}
+
+	public ArrayList<Corde> getTriangulation() {
+		return triangulation;
+	}
+
+	public void setTriangulation(ArrayList<Corde> triangulation) {
+		this.triangulation = triangulation;
 	}
 }

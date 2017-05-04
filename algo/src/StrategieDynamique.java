@@ -15,6 +15,7 @@ public class StrategieDynamique implements Strategie {
 		
 		//variable contenant la longueur de la triangulisation
 		double longueurMin = c.calculLongueur(l.get(0), l.get(k)) + c.calculLongueur(l.get(k), l.get(n-1))+ c.calculLongueur(l.get(0), l.get(n-1));
+		System.out.println("longueurMin:"+longueurMin);
 		
 		//cas où le polygone peut avoir une triangulisation
 		if (n>3){

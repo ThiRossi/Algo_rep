@@ -5,8 +5,8 @@ public class Sommet {
 	private int ord;
 	
 	public Sommet(int abscisse, int ordonnee){
-		abscisse=abs;
-		ordonnee=ord;
+		abs=abscisse;
+		ord=ordonnee;
 	}
 
 	public int getAbs() {

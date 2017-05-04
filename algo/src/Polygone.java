@@ -5,7 +5,7 @@ public class Polygone {
 	private ArrayList<Sommet> listSom;
 	
 	public Polygone(ArrayList<Sommet> listSommets){
-		listSommets=listSom;
+		listSom=listSommets;
 	}
 	public void setListSom(ArrayList<Sommet> listSom) {
 		this.listSom = listSom;

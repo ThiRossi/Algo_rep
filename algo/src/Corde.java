@@ -5,10 +5,10 @@ public class Corde {
 	private Sommet sommetArrive;
 	double longueur;
 	
-	public Corde(Sommet sd, Sommet sa, double l){
+	public Corde(Sommet sd, Sommet sa){
 		setSommetDepard(sd);
 		setSommetArrive(sa);
-		longueur = l;
+		longueur=Math.sqrt(Math.pow((sa.getAbs() - sd.getAbs()), 2)+Math.pow((sa.getOrd() - sd.getOrd()), 2));
 	}
 	
 	public boolean egalCorde(Corde c1, Corde c2){

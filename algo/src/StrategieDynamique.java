@@ -114,8 +114,7 @@ public class StrategieDynamique implements Strategie {
 		}
 
 	}
-
-	@Override
+	
 	public String toString() {
 		return "StrategieDynamique [triangulation=" + triangulation + "]";
 	}

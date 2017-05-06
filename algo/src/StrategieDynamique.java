@@ -23,7 +23,7 @@ public class StrategieDynamique implements Strategie {
 			ArrayList<Sommet> l2 = new ArrayList<Sommet>();
 
 			// affectation des deux liste afin de diviser le problème en deux
-			for (i = 0; i < n - 1; i++) {
+			for (i = 0; i < n; i++) {
 				if (i < k) {
 					l1.add(l.get(i));
 				} else if (i == k) {
@@ -46,12 +46,12 @@ public class StrategieDynamique implements Strategie {
 			// System.out.println("longueurMin:"+longueurMin);
 
 			// on parcourt tous les autres points
-			for (i = 2; i < n - 1; i++) {
+			for (i = 2; i < n-1; i++) {
 
 				l1 = new ArrayList<Sommet>();
 				l2 = new ArrayList<Sommet>();
-
-				for (j = 0; j < n - 1; j++) {
+				
+				for (j = 0; j < n; j++) {
 					if (j < i) {
 						l1.add(l.get(j));
 					} else if (j == i) {
@@ -87,21 +87,21 @@ public class StrategieDynamique implements Strategie {
 						- c.calculLongueur(l.get(0), l.get(n - 1));
 				Corde ct = new Corde(l.get(k), l.get(n - 1));
 				System.out.println("1");
-				triangulation.add(ct);
+				//triangulation.add(ct);
 			} else if (k == n - 2) {
 				longueurMin = longueurMin
 						- c.calculLongueur(l.get(k), l.get(n - 1))
 						- c.calculLongueur(l.get(0), l.get(n - 1));
 				Corde ct = new Corde(l.get(0), l.get(k));
-				triangulation.add(ct);
+				//triangulation.add(ct);
 				System.out.println("2");
 			} else {
 				longueurMin = longueurMin
 						- c.calculLongueur(l.get(0), l.get(n - 1));
 				Corde ct = new Corde(l.get(k), l.get(n - 1));
 				Corde cd = new Corde(l.get(0), l.get(k));
-				triangulation.add(ct);
-				triangulation.add(cd);
+				//triangulation.add(ct);
+				//triangulation.add(cd);
 				System.out.println("3");
 			}
 			System.out.println("avant:" +longueurMin);
@@ -114,7 +114,8 @@ public class StrategieDynamique implements Strategie {
 		}
 
 	}
-	
+
+	@Override
 	public String toString() {
 		return "StrategieDynamique [triangulation=" + triangulation + "]";
 	}

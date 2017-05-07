@@ -1,10 +1,18 @@
 import java.util.ArrayList;
 
+
 public class StrategieDynamique implements Strategie {
 
 	private ArrayList<Corde> triangulation = new ArrayList<Corde>();
 
-
+/**
+ * @param Polynome p
+ * 
+ * Cette fonction permet de calculer la triangulation minimale grâce à l'algorithme Dynamique
+ * 
+ * @return triangulation
+ */
+	
 	public double triangulation(Polygone p) {
 
 		int i;

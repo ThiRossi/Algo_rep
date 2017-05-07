@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 
 public class Test {
+	
+	/**
+	 * Test de toutes les méthodes de triangulation
+	 * @param args
+	 */
 
 	public static void main(String args[]) {
 		Strategie g;

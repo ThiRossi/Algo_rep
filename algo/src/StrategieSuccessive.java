@@ -1,24 +1,22 @@
 import java.util.ArrayList;
 
-/**
- * jejejejejeje
- * 
- */
 
+/**
+ * @author trossign
+ *
+ */
 public class StrategieSuccessive implements Strategie {
 	private Polygone poly;
-	ArrayList<Corde> cordesPossibles = new ArrayList<Corde>();
-	ArrayList<Corde> triangulation = new ArrayList<Corde>();
-	double lTriangulation;
+	private ArrayList<Corde> cordesPossibles = new ArrayList<Corde>();
+	private ArrayList<Corde> triangulation = new ArrayList<Corde>();
+	private double lTriangulation;
+
 
 	public double triangulation(Polygone p) {
 		poly = p;
 		ArrayList<Corde> cCrées = new ArrayList<Corde>();
 		calculCordes(p);
-		System.out.println("corde possible" + cordesPossibles);
-		System.out.println("cC" + cCrées);
-		noeud(cCrées, 0, 0);
-		System.out.println("finTris");
+		noeud(cCrées, 0, 0.0);
 		return lTriangulation;
 	}
 
@@ -26,16 +24,22 @@ public class StrategieSuccessive implements Strategie {
 
 		int indexI = poly.getListSom().indexOf(si);
 		int indexJ = poly.getListSom().indexOf(sj);
+
 		if (!cordesCrées.isEmpty()) {
+
 			for (int k = 0; k < cordesCrées.size(); k++) {
+
 				Sommet somDep = cordesCrées.get(k).getSommetDepard();
 				Sommet somFin = cordesCrées.get(k).getSommetArrive();
+
 				int indexSD = poly.getListSom().indexOf(somDep);
 				int indexSF = poly.getListSom().indexOf(somFin);
 
 				if (somDep.equals(si) && somFin.equals(sj) || somDep.equals(sj)
 						&& somFin.equals(si)) {
+
 					return false;
+
 				} else if (indexSD < indexSF) {
 					testIndex(indexI, indexJ, indexSD, indexSF);
 				} else {
@@ -63,6 +67,9 @@ public class StrategieSuccessive implements Strategie {
 			return false;
 	}
 
+	/**
+	 * @param p
+	 */
 	public void calculCordes(Polygone p) {
 		for (int k = 0; k < p.getListSom().size(); k++) {
 			p.getListSom().get(k);
@@ -85,41 +92,37 @@ public class StrategieSuccessive implements Strategie {
 	}
 
 	public void noeud(ArrayList<Corde> t, int p, double l) {
-		System.out.println("t" + t);
-		if (t.isEmpty()) {
-			System.out.println("1");
-			t.add(cordesPossibles.get(p));
-			l += cordesPossibles.get(p).longueur;
-			noeud(t, p + 1, l);
-		} else {
-			System.out.println("2");
-			int tailleC = cordesPossibles.size();
-			int tailleP = poly.getListSom().size();
-			System.out.println("tailleC : " + tailleC);
-			System.out.println("tailleP : " + tailleP);
-			System.out.println("p : " + p);
-			System.out.println("tailleT : " + t.size());
-			if (p < tailleC && (t.size() < (tailleP - 3))) {
-				System.out.println("3");
-				System.out.println("tailleT : " + t.size());
-				if (triangulation.isEmpty() || l < lTriangulation) {
-					if (t.size() < (tailleP - 3)) {
-						System.out.println("4");
-						noeud(t, p + 1, l);
+		ArrayList<Corde> t1 = new ArrayList<Corde>(t);
+		ArrayList<Corde> t2 = new ArrayList<Corde>(t);
+		int tailleP = poly.getListSom().size(); // somme des sommets
+		int tailleC = cordesPossibles.size(); // nombre corde possible
+		
+		if (p < tailleC) {
+			if (t.isEmpty()) { // aucune cordes de tracées
+				noeud(t1, p + 1, l); // corde p pas prise
+				t2.add(cordesPossibles.get(p));
+				l += cordesPossibles.get(p).longueur;
+				noeud(t2, p + 1, l); // corde p prise
+			} else {
+				// nombre de corde max
+				if (t.size() < (tailleP - 3)) { 
+					// test si ça peut être la meilleure
+					if (triangulation.isEmpty() || l < lTriangulation) { 
+						noeud(t1, p + 1, l); // corde p pas prise
+						//test si elle peut être tracée
 						if (validCorde(cordesPossibles.get(p), t)) {
-							t.add(cordesPossibles.get(p));
+							t2.add(cordesPossibles.get(p));
 							l += cordesPossibles.get(p).longueur;
-							noeud(t, p + 1, l);
+							noeud(t2, p + 1, l); // corde p prise
 						}
 					}
+				} else if (t.size() == 2
+						&& (triangulation.isEmpty() || l < lTriangulation)) {
+					triangulation = new ArrayList<Corde>(t);
+					lTriangulation = l;
 				}
-			} else {
-				System.out.println("5");
-				triangulation = t;
-				lTriangulation = l;
 			}
 		}
-
 	}
 
 	public ArrayList<Corde> getTriangulation() {

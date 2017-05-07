@@ -116,7 +116,7 @@ public class StrategieSuccessive implements Strategie {
 							noeud(t2, p + 1, l); // corde p prise
 						}
 					}
-				} else if (t.size() == 2
+				} else if (t.size() == (tailleP - 3)
 						&& (triangulation.isEmpty() || l < lTriangulation)) {
 					triangulation = new ArrayList<Corde>(t);
 					lTriangulation = l;

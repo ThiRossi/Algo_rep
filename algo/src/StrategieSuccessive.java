@@ -1,8 +1,11 @@
 import java.util.ArrayList;
 
 
+
+
+
 /**
- * @author trossign
+ * Strategie Successive
  *
  */
 public class StrategieSuccessive implements Strategie {
@@ -10,8 +13,14 @@ public class StrategieSuccessive implements Strategie {
 	private ArrayList<Corde> cordesPossibles = new ArrayList<Corde>();
 	private ArrayList<Corde> triangulation = new ArrayList<Corde>();
 	private double lTriangulation;
-
-
+	
+	/**
+	 * Cette fonction permet de calculer la triangulation minimale grâce à l'algorithme Successif
+	 *
+	 * @param p
+	 * 
+	 * @return la longueur de la triangulation 
+	 */
 	public double triangulation(Polygone p) {
 		poly = p;
 		ArrayList<Corde> cCrées = new ArrayList<Corde>();
@@ -19,7 +28,16 @@ public class StrategieSuccessive implements Strategie {
 		noeud(cCrées, 0, 0.0);
 		return lTriangulation;
 	}
-
+	
+	/**
+	 *  Premet de tester si une corde est trassable 
+	 *  
+	 * @param si
+	 * @param sj
+	 * @param cordesCrées
+	 * 
+	 * @return un boolean
+	 */
 	public boolean validCorde(Sommet si, Sommet sj, ArrayList<Corde> cordesCrées) {
 
 		int indexI = poly.getListSom().indexOf(si);
@@ -52,13 +70,31 @@ public class StrategieSuccessive implements Strategie {
 			return true;
 		}
 	}
-
+	
+	/**
+	 *  Premet de tester si une corde est trassable 
+	 *  
+	 * @param c
+	 * @param cordesCrées
+	 * 
+	 * @return un boolean
+	 */
 	public boolean validCorde(Corde c, ArrayList<Corde> cordesCrées) {
 		Sommet si = c.getSommetDepard();
 		Sommet sj = c.getSommetArrive();
 		return validCorde(si, sj, cordesCrées);
 	}
-
+	
+	/**
+	 * Premet de tester si les index des sommets sont bon
+	 * 
+	 * @param i
+	 * @param j
+	 * @param d
+	 * @param f
+	 * 
+	 * @return un boolean
+	 */
 	public boolean testIndex(int i, int j, int d, int f) {
 		if (i < d && (j < d || j > f) || j < d && (i < d || i > f)
 				|| (i > d && i < f) && ((j < d && j < f) || i > f && j > f)) {
@@ -68,6 +104,8 @@ public class StrategieSuccessive implements Strategie {
 	}
 
 	/**
+	 * permet de calculer toutes les cordes possibles
+	 * 
 	 * @param p
 	 */
 	public void calculCordes(Polygone p) {
@@ -90,7 +128,14 @@ public class StrategieSuccessive implements Strategie {
 			}
 		}
 	}
-
+	
+	/**
+	 * Construit les abres de triangulation et enregistre la meilleure
+	 * 
+	 * @param t
+	 * @param p
+	 * @param l
+	 */
 	public void noeud(ArrayList<Corde> t, int p, double l) {
 		ArrayList<Corde> t1 = new ArrayList<Corde>(t);
 		ArrayList<Corde> t2 = new ArrayList<Corde>(t);
@@ -133,7 +178,7 @@ public class StrategieSuccessive implements Strategie {
 		this.triangulation = triangulation;
 	}
 
-	@Override
+
 	public String toString() {
 		return "StrategieSuccessive [triangulation=" + triangulation + "]";
 	}

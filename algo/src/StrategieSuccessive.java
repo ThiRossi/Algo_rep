@@ -30,77 +30,60 @@ public class StrategieSuccessive implements Strategie {
 	}
 	
 	/**
-	 *  Premet de tester si une corde est trassable 
+	 *  Premet de tester si une corde est traçable 
 	 *  
-	 * @param si
-	 * @param sj
+	 * @param sI
+	 * @param sJ
 	 * @param cordesCrées
 	 * 
 	 * @return un boolean
 	 */
-	public boolean validCorde(Sommet si, Sommet sj, ArrayList<Corde> cordesCrées) {
+	public boolean valideCorde(Sommet sI, Sommet sJ, ArrayList<Corde> cordesCrées) {
+		ArrayList<Sommet> p=poly.getListSom();
+		int nbSommets = p.size();
+		int indexI = p.indexOf(sI);
+		int indexJ = p.indexOf(sJ);
 
-		int indexI = poly.getListSom().indexOf(si);
-		int indexJ = poly.getListSom().indexOf(sj);
+		int IndexSD, IndexSA;
+		Corde cCree = new Corde(sI, sJ);
 
-		if (!cordesCrées.isEmpty()) {
+		boolean possible = true;
 
-			for (int k = 0; k < cordesCrées.size(); k++) {
+		for (Corde cTeste : cordesCrées) {
 
-				Sommet somDep = cordesCrées.get(k).getSommetDepard();
-				Sommet somFin = cordesCrées.get(k).getSommetArrive();
-
-				int indexSD = poly.getListSom().indexOf(somDep);
-				int indexSF = poly.getListSom().indexOf(somFin);
-
-				if (somDep.equals(si) && somFin.equals(sj) || somDep.equals(sj)
-						&& somFin.equals(si)) {
-
-					return false;
-
-				} else if (indexSD < indexSF) {
-					testIndex(indexI, indexJ, indexSD, indexSF);
-				} else {
-					testIndex(indexI, indexJ, indexSF, indexSD);
-				}
-
+			if (cCree.equals(cTeste)){
+				possible = false;
 			}
-			return true;
-		} else {
-			return true;
+			else {
+				IndexSD = p.indexOf(cTeste.getSommetDepard());
+				IndexSA = p.indexOf(cTeste.getSommetArrive());	
+				
+				if((((indexI >= (IndexSD + 1) % nbSommets) && (indexI <= (IndexSA -1) % nbSommets)) &&
+					    ((indexJ >= (IndexSA + 1) % nbSommets) && (indexJ<= (IndexSD -1) % nbSommets)))
+					    ||
+					(((indexJ >= (IndexSD + 1) % nbSommets) && (indexJ <= (IndexSA -1) % nbSommets)) &&
+					    ((indexI >= (IndexSA + 1) % nbSommets) && (indexI<= (IndexSD -1) % nbSommets)))
+					){
+				possible = false;							
+				}
+			}
 		}
+		return possible;
 	}
+
 	
 	/**
-	 *  Premet de tester si une corde est trassable 
+	 *  Premet de tester si une corde est traçable 
 	 *  
 	 * @param c
 	 * @param cordesCrées
 	 * 
 	 * @return un boolean
 	 */
-	public boolean validCorde(Corde c, ArrayList<Corde> cordesCrées) {
-		Sommet si = c.getSommetDepard();
-		Sommet sj = c.getSommetArrive();
-		return validCorde(si, sj, cordesCrées);
-	}
-	
-	/**
-	 * Premet de tester si les index des sommets sont bon
-	 * 
-	 * @param i
-	 * @param j
-	 * @param d
-	 * @param f
-	 * 
-	 * @return un boolean
-	 */
-	public boolean testIndex(int i, int j, int d, int f) {
-		if (i < d && (j < d || j > f) || j < d && (i < d || i > f)
-				|| (i > d && i < f) && ((j < d && j < f) || i > f && j > f)) {
-			return true;
-		} else
-			return false;
+	public boolean valideCorde(Corde c, ArrayList<Corde> cordesCrées) {
+		Sommet sI = c.getSommetDepard();
+		Sommet sJ = c.getSommetArrive();
+		return valideCorde(sI, sJ, cordesCrées);
 	}
 
 	/**
@@ -110,19 +93,17 @@ public class StrategieSuccessive implements Strategie {
 	 */
 	public void calculCordes(Polygone p) {
 		for (int k = 0; k < p.getListSom().size(); k++) {
-			p.getListSom().get(k);
+			Sommet sD = p.getListSom().get(k);
 			if (k == 0) {
 				for (int j = k + 2; j < (p.getListSom().size() - 1); j++) {
-					p.getListSom().get(j);
-					Corde c = new Corde(p.getListSom().get(k), p.getListSom()
-							.get(j));
+					Sommet sA = p.getListSom().get(j);
+					Corde c = new Corde(sD, sA);
 					cordesPossibles.add(c);
 				}
 			} else {
 				for (int j = k + 2; j < (p.getListSom().size()); j++) {
-					p.getListSom().get(j);
-					Corde c = new Corde(p.getListSom().get(k), p.getListSom()
-							.get(j));
+					Sommet sA = p.getListSom().get(j);
+					Corde c = new Corde(sD, sA);
 					cordesPossibles.add(c);
 				}
 			}
@@ -155,7 +136,7 @@ public class StrategieSuccessive implements Strategie {
 					if (triangulation.isEmpty() || l < lTriangulation) { 
 						noeud(t1, p + 1, l); // corde p pas prise
 						//test si elle peut être tracée
-						if (validCorde(cordesPossibles.get(p), t)) {
+						if (valideCorde(cordesPossibles.get(p), t)) {
 							t2.add(cordesPossibles.get(p));
 							l += cordesPossibles.get(p).longueur;
 							noeud(t2, p + 1, l); // corde p prise

@@ -1,0 +1,17 @@
+Voici comment lancer le jeux de test des différente méthode pour calculer la triangulation :
+
+1. Ouvrir un terminal
+
+2. Se placer à la racine du projet :
+	cd Algo\ Avancé/
+	
+3. Lancer le Jar exécutable : 
+	java -jar Test.jar
+	
+
+	
+	
+Importation dans Eclipse :
+
+	File -> Import -> Algo\ Avancé/
+
